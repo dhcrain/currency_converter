@@ -8,6 +8,7 @@ class Money:
 
     @property
     def to_usd(self):
+        # amount * xxx_usd = $1
         jpy_usd = 0.009031
         eur_usd = 1.113634
         btc_usd = 529.72
@@ -21,7 +22,7 @@ class Money:
             return self.amount
 
     def __str__(self):
-        return "{} {}".format(self.amount, self.currency.upper())
+        return "{} {}".format(self.amount, "USD")
 
     def __eq__(self, other):
         return self.to_usd == other.to_usd
@@ -52,23 +53,27 @@ class Money:
 
 
 btc = Money(1, "BTC")
-eur = Money(1, "EUR")
-jpy = Money(1, "JPY")
-usd = Money(1, "USD")
+eur = Money(56.32, "EUR")
+jpy = Money(10000, "JPY")
+usd = Money(529.72, "USD")
+usd2 = Money(8, "USD")
 
-# print("All Results in USD")
-# print("BTC - USD:", btc - usd)
-# print("EUR * JPY:", eur * jpy)
-# print("EUR + BTC:", eur + btc)
-# print("BTC > USD:", btc > usd)
-# print("EUR >= JPY", eur >= jpy)
-# print("JPY < BTC", jpy < btc)
+print("All Results in USD")
+print("BTC - USD:", btc - usd)
+print("EUR * JPY:", eur * jpy)
+print("EUR + BTC:", eur + btc)
+print("BTC > USD:", btc > usd)
+print("EUR >= JPY", eur >= jpy)
+print("JPY < BTC", jpy < btc)
+print("USD <= USD2", usd <= usd2)
+print("JPY != BTC", jpy != btc)
+print("BTC == USD", btc == usd)
 
 print(btc.to_usd)
 print(eur.to_usd)
 print(jpy.to_usd)
 print(usd.to_usd)
+
 print(Money(100.00, "USD") + Money(56.32, "EUR") + Money(1.2, "BTC") + Money(8, "USD"))
 
 
-print(100 + 62.70 + 625.98 + 8)
