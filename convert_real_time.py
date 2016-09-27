@@ -1,3 +1,4 @@
+import requests
 
 
 class Money:
@@ -8,17 +9,28 @@ class Money:
 
     @property
     def to_usd(self):
+        conversion = {"JPY": "JPY_USD",
+                      "EUR": "EUR_USD",
+                      "BTC": "BTC_USD",
+                      "USD": "USD_USD"
+                      }
 
-        rates = {"JPY": 0.009031,
-                 "EUR": 1.113634,
-                 "BTC": 529.72,
-                 "USD": 1
-                 }
+        # if self.currency == "JPY":
+        #     conversion = "JPY_USD"
+        # elif self.currency == "EUR":
+        #     conversion = "EUR_USD"
+        # elif self.currency == "BTC":
+        #     conversion = "BTC_USD"
+        # else:   # USD
+        #     return self.amount
 
-        if self.currency not in rates.keys():
+        url = "http://free.currencyconverterapi.com/api/v3/convert?q={}".format(conversion[self.currency])
+        response = requests.get(url).json()
+        rate = response['results'][conversion[self.currency]]['val']
+        if self.currency not in conversion.keys():
             print(" ! {} is not compatable with the program ! \n".format(self.currency))
         else:
-            return self.amount * rates[self.currency]
+            return self.amount * rate
 
     def __str__(self):
         return "{} {}".format(self.amount, self.currency)
